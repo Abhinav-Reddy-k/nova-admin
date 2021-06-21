@@ -1,57 +1,95 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Redirect, Route, Switch } from "react-router";
+
+import ConditionalRoute from "./app/common/ConditionalRoute";
+import {
+  selectEmailVerified,
+  selectIsAutheticated,
+} from "./features/auth/authSlice";
+import Login from "./features/auth/Login";
+import ResetPassword from "./features/auth/ResetPassword";
+import Home from "./features/home/home";
+import { selectHasProfileData } from "./features/Profile/profileSlice";
+import Profile from "./features/registration/RegisterProfileData";
+import Register from "./features/registration/RegisterEmail";
+import VerifyEmail from "./features/registration/VerifyEmail";
+
+import "./App.css";
+import ProfileData from "./features/Profile/ProfileData";
+import { selectIsLoading } from "./features/home/homeSlice";
+import LoadingSpinner from "./app/common/LoadingSpinner";
+import EditProfile from "./features/Profile/EditProfile";
 
 function App() {
+  const isAuthenticated = useSelector(selectIsAutheticated);
+  const isEmailVerified = useSelector(selectEmailVerified);
+  const hasProfileData = useSelector(selectHasProfileData);
+  const isLoading = useSelector(selectIsLoading);
+
+  if (isLoading) return <LoadingSpinner />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Switch>
+      <ConditionalRoute
+        component={Login}
+        path={"/login"}
+        exact
+        condition={!isAuthenticated}
+        redirectUrl="/home"
+      />
+
+      <ConditionalRoute
+        path={"/home"}
+        component={Home}
+        condition={isAuthenticated && isEmailVerified && hasProfileData}
+        redirectUrl={
+          !isAuthenticated
+            ? "/login"
+            : !isEmailVerified
+            ? "/registration/verifyEmail"
+            : "/registration/profile"
+        }
+      />
+
+      <ConditionalRoute
+        path={"/registration/register"}
+        component={Register}
+        condition={!isAuthenticated}
+        exact
+        redirectUrl={"/home"}
+      />
+
+      <ConditionalRoute
+        path={"/registration/verifyEmail"}
+        component={VerifyEmail}
+        condition={isAuthenticated && !isEmailVerified}
+        exact
+        redirectUrl={isEmailVerified ? "/home" : "/login"}
+      />
+
+      <ConditionalRoute
+        path={"/registration/profile"}
+        component={Profile}
+        condition={isAuthenticated && isEmailVerified && !hasProfileData}
+        exact
+        redirectUrl={"/home"}
+      />
+
+      <Route path="/resetPassword">
+        <ResetPassword />
+      </Route>
+
+      <Route path="/editProfile">
+        <EditProfile />
+      </Route>
+
+      <Route path="/profile">
+        <ProfileData />
+      </Route>
+
+      <Redirect to={"/home"} />
+    </Switch>
   );
 }
 
