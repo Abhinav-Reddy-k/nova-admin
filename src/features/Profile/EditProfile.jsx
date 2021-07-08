@@ -60,7 +60,7 @@ const EditProfile = () => {
     try {
       await editProfileData({ ...val, uid });
       message.success("Successfully Changed");
-      history.replace("/profile");
+      history.replace("/home/myprofile");
     } catch (err) {
       message.error(err.message);
       console.log(err);

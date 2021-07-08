@@ -8,7 +8,12 @@ function TopAppBar() {
   return (
     <Menu
       mode="horizontal"
-      style={{ position: "fixed", width: "100%" }}
+      style={{
+        position: "fixed",
+        width: "100%",
+        zIndex: 1,
+        display: "block",
+      }}
       defaultSelectedKeys={["logo"]}
     >
       <Menu.Item key="logo">
@@ -18,7 +23,7 @@ function TopAppBar() {
         Logout
       </Menu.Item>
       <Menu.Item key="profile" style={{ float: "right" }}>
-        <Link to="/profile">Profile</Link>
+        <Link to="/home/myprofile">Profile</Link>
       </Menu.Item>
     </Menu>
   );

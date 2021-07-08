@@ -1,6 +1,6 @@
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import { AiOutlineTeam, AiTwotoneFileText } from "react-icons/ai";
+import { AiOutlineCode, AiTwotoneFileText } from "react-icons/ai";
 import { SiGoogleclassroom } from "react-icons/si";
 import { FaBookReader } from "react-icons/fa";
 import { useRouteMatch, Link } from "react-router-dom";
@@ -13,18 +13,23 @@ function SideBar() {
   const { url } = useRouteMatch();
   return (
     <Sider
-      style={{ marginTop: "50px" }}
+      width={200}
+      theme="light"
+      style={{
+        marginTop: "45px",
+        left: 0,
+      }}
       collapsible
       collapsed={collapsed}
       onCollapse={onCollapse}
     >
-      <Menu theme="dark" mode="inline">
-        <Item
-          key="onlineClasses"
-          icon={<SiGoogleclassroom />}
-          onClick={(info) => console.log(info)}
-        >
+      <Menu mode="inline">
+        <Item key="onlineClasses" icon={<SiGoogleclassroom />}>
           <Link to={`${url}/onlineClasses`}>Online Classes</Link>
+        </Item>
+
+        <Item key="ide" icon={<AiOutlineCode />}>
+          <Link to={`${url}/ide`}>Code Editor</Link>
         </Item>
 
         <SubMenu key="sub1" title="Study Material" icon={<FaBookReader />}>

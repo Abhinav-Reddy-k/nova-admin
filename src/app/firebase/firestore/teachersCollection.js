@@ -33,7 +33,7 @@ export const setTeacherProfileData = async ({
   });
   batch.set(
     teacherDoc,
-    { address, phone, photoURL, displayName, email },
+    { address, phone, photoURL, displayName, email, uid },
     { merge: true }
   );
   return batch.commit();
@@ -42,24 +42,22 @@ export const setTeacherProfileData = async ({
 export const editProfileData = async ({ classes, phone, address, uid }) => {
   const teacherDoc = db.collection("teachers").doc(uid);
   const batch = db.batch();
+
+  batch.update(teacherDoc, { classes: [] });
+
   classes.forEach((classData) => {
     const branch = classData[0];
     const year = classData[1];
     const section = classData[2];
     const subject = classData[3];
-
-    batch.set(
-      teacherDoc,
-      {
-        classes: firebase.firestore.FieldValue.arrayUnion({
-          branch,
-          year,
-          section,
-          subject,
-        }),
-      },
-      { merge: true }
-    );
+    batch.update(teacherDoc, {
+      classes: firebase.firestore.FieldValue.arrayUnion({
+        branch,
+        year,
+        section,
+        subject,
+      }),
+    });
   });
 
   batch.update(teacherDoc, { address, phone }, { merge: true });

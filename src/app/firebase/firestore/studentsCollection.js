@@ -29,11 +29,3 @@ export function setStudentProfileData(student) {
     .withConverter(studentProfileConverter)
     .set(student, { merge: true });
 }
-
-export function studentTasksListener(year, branch, section) {
-  return db
-    .collection("tasks")
-    .doc(year.toString())
-    .collection(branch)
-    .where("sections", "array-contains", section);
-}

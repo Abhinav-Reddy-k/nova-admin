@@ -16,10 +16,8 @@ import Register from "./features/registration/RegisterEmail";
 import VerifyEmail from "./features/registration/VerifyEmail";
 
 import "./App.css";
-import ProfileData from "./features/Profile/ProfileData";
 import { selectIsLoading } from "./features/home/homeSlice";
 import LoadingSpinner from "./app/common/LoadingSpinner";
-import EditProfile from "./features/Profile/EditProfile";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAutheticated);
@@ -78,14 +76,6 @@ function App() {
 
       <Route path="/resetPassword">
         <ResetPassword />
-      </Route>
-
-      <Route path="/editProfile">
-        <EditProfile />
-      </Route>
-
-      <Route path="/profile">
-        <ProfileData />
       </Route>
 
       <Redirect to={"/home"} />
