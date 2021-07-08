@@ -1,4 +1,4 @@
-import { Card, Col, Input, Row, Menu } from "antd";
+import { Card, Col, Input, Row, Menu, Select } from "antd";
 import { Button } from "antd/lib/radio";
 import axios from "axios";
 import React, { useState } from "react";
@@ -24,12 +24,18 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-golang";
 import "ace-builds/src-noconflict/mode-csharp";
 import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-chrome";
+import "ace-builds/src-noconflict/theme-clouds";
+import "ace-builds/src-noconflict/theme-clouds_midnight";
+import "ace-builds/src-noconflict/theme-cobalt";
+
 const CodeEditor = () => {
   const [code, setCode] = useState("");
   const [stdin, setStdin] = useState("");
   const [languageMode, setLangMode] = useState("python");
   const [language, setLang] = useState("python");
   const [versionIndex, setVerIndex] = useState(3);
+  const [theme, setTheme] = useState("chrome");
 
   const [outputData, setOutput] = useState({
     output: "",
@@ -163,7 +169,21 @@ const CodeEditor = () => {
         ></Input.TextArea>
       </Card>
       <Row justify="center">
-        <Button onClick={getOutput}>Exectute</Button>
+        <Button style={{ margin: "10px" }} onClick={getOutput}>
+          Exectute
+        </Button>
+        <Select
+          defaultValue="chrome"
+          onChange={(val) => {
+            setTheme(val);
+          }}
+          style={{ width: "200px", margin: "10px" }}
+        >
+          <Select.Option value="monokai">Monokai</Select.Option>
+          <Select.Option value="chrome">Chrome</Select.Option>
+          <Select.Option value="clouds">Clouds</Select.Option>
+          <Select.Option value="cobalt">Cobalt</Select.Option>
+        </Select>
       </Row>
 
       <Row style={{ marginTop: 30 }} justify="space-around">
@@ -172,7 +192,7 @@ const CodeEditor = () => {
             placeholder="Write code here"
             mode={languageMode}
             value={code}
-            theme="monokai"
+            theme={theme}
             name="blah2"
             onChange={onChange}
             fontSize={20}
