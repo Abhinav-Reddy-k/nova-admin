@@ -1,15 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Checkbox } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { selectClasses, selectProfileData } from "../Profile/profileSlice";
-import {
-  myClassesListener,
-  startOnlineClass,
-} from "../../app/firebase/firestore/classesCollection";
-import { myClassesLoaded, selectCurrentClasses } from "./classesSclice";
-import ClassCardGrid from "./ClassesCardGrid";
-import FloatingActionButton from "../../app/common/FloatingActionButton";
-
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   let currentClasses = useSelector(selectCurrentClasses);
@@ -114,10 +102,10 @@ const OnlineClasses = () => {
     <div>
       <ClassCardGrid />
 
-      <FloatingActionButton
-        onClick={() => setVisible(true)}
-        tooltip="Start new class"
-      />
+      <Tooltip title="Start New Class" className="floatingbutton">
+        <p></p>
+        <a onClick={() => setVisible(true)} href="#"></a>
+      </Tooltip>
       <CollectionCreateForm
         visible={visible}
         onCreate={onCreate}

@@ -1,4 +1,4 @@
-import { Card, Col, Input, Row, Menu, Select } from "antd";
+import { Card, Col, Input, Row, Menu, Select, Skeleton } from "antd";
 import { Button } from "antd/lib/radio";
 import axios from "axios";
 import React, { useState } from "react";
@@ -31,6 +31,7 @@ import "ace-builds/src-noconflict/theme-cobalt";
 
 const CodeEditor = () => {
   const [code, setCode] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const [stdin, setStdin] = useState("");
   const [languageMode, setLangMode] = useState("python");
   const [language, setLang] = useState("python");
@@ -54,7 +55,7 @@ const CodeEditor = () => {
   };
 
   const getOutput = async () => {
-    console.log(code, stdin);
+    setLoading(true);
     const { data } = await axios.post("https://api.jdoodle.com/v1/execute", {
       clientId: "504d3f8e7aa550a36678ac75c6daf92b",
       clientSecret:
@@ -65,6 +66,7 @@ const CodeEditor = () => {
       stdin,
     });
     setOutput(data);
+    setLoading(false);
   };
 
   return (
@@ -210,8 +212,8 @@ const CodeEditor = () => {
         </Col>
         <Col span={10}>
           <Card
-            extra={<Button onClick={() => setOutput("")}>Clear</Button>}
             title="Output"
+            extra={<Button onClick={() => setOutput("")}>Clear</Button>}
             style={{ height: "500px" }}
             actions={[
               <p>Status Code : {outputData.statusCode}</p>,
@@ -219,7 +221,17 @@ const CodeEditor = () => {
               <p>Cpu Time: {outputData.cpuTime}</p>,
             ]}
           >
-            <pre style={{ height: "310px" }}>{outputData.output}</pre>
+            <Skeleton
+              paragraph={{ style: { height: "290px" }, rows: 8 }}
+              loading={isLoading}
+              active
+            >
+              <Card.Meta
+                description={
+                  <pre style={{ height: "310px" }}>{outputData.output}</pre>
+                }
+              />
+            </Skeleton>
           </Card>
         </Col>
       </Row>

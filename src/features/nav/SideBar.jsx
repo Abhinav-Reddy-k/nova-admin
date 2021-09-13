@@ -1,8 +1,12 @@
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import { AiOutlineCode, AiTwotoneFileText } from "react-icons/ai";
+import {
+  AiOutlineCode,
+  AiOutlineCodeSandbox,
+  AiTwotoneFileText,
+} from "react-icons/ai";
 import { SiGoogleclassroom } from "react-icons/si";
-import { FaBookReader } from "react-icons/fa";
+import { FaBookReader, FaLaptopCode } from "react-icons/fa";
 import { useRouteMatch, Link } from "react-router-dom";
 
 function SideBar() {
@@ -28,8 +32,12 @@ function SideBar() {
           <Link to={`${url}/onlineClasses`}>Online Classes</Link>
         </Item>
 
-        <Item key="ide" icon={<AiOutlineCode />}>
+        <Item key="ide" icon={<AiOutlineCodeSandbox />}>
           <Link to={`${url}/ide`}>Code Editor</Link>
+        </Item>
+
+        <Item key="codetask" icon={<FaLaptopCode />}>
+          <Link to={`${url}/ide`}>Coding Test</Link>
         </Item>
 
         <SubMenu key="sub1" title="Study Material" icon={<FaBookReader />}>
