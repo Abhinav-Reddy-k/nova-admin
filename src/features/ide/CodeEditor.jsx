@@ -1,4 +1,14 @@
-import { Card, Col, Input, Row, Menu, Select, Skeleton } from "antd";
+import {
+  Card,
+  Col,
+  Input,
+  Row,
+  Menu,
+  Select,
+  Skeleton,
+  Modal,
+  Progress,
+} from "antd";
 import { Button } from "antd/lib/radio";
 import axios from "axios";
 import React, { useState } from "react";
@@ -10,7 +20,6 @@ import {
   SiCplusplus,
   SiCsharp,
   SiJava,
-  SiJavascript,
   SiNodeDotJs,
   SiDart,
   SiSwift,
@@ -29,7 +38,7 @@ import "ace-builds/src-noconflict/theme-clouds";
 import "ace-builds/src-noconflict/theme-clouds_midnight";
 import "ace-builds/src-noconflict/theme-cobalt";
 
-const CodeEditor = () => {
+const CodeEditor = ({ tests }) => {
   const [code, setCode] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [stdin, setStdin] = useState("");
@@ -47,26 +56,75 @@ const CodeEditor = () => {
   function onChange(newValue) {
     setCode(newValue);
   }
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [score, setScore] = useState(0);
+  const [total, setTotal] = useState(0);
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    setScore(0);
+    setTotal(0);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setScore(0);
+    setTotal(0);
+  };
   const setIdeSettings = (mode, language, versionIndex) => {
     setLang(language);
     setVerIndex(versionIndex);
     setLangMode(mode);
   };
 
-  const getOutput = async () => {
+  const showOutput = async () => {
     setLoading(true);
-    const { data } = await axios.post("https://api.jdoodle.com/v1/execute", {
-      clientId: "504d3f8e7aa550a36678ac75c6daf92b",
-      clientSecret:
-        "9b3c4230355b9576fe602ff7a5286f9e0b542348a01771ff3d5318d6ac53cd16",
-      script: code,
-      language,
-      versionIndex,
-      stdin,
-    });
+    const data = await getCodeOutput(code, language, versionIndex, stdin);
     setOutput(data);
     setLoading(false);
+  };
+
+  const getCodeOutput = async (code, language, versionIndex, stdin) => {
+    const { data } = await axios("https://api.jdoodle.com/v1/execute", {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: {
+        clientId: "504d3f8e7aa550a36678ac75c6daf92b",
+        clientSecret:
+          "9b3c4230355b9576fe602ff7a5286f9e0b542348a01771ff3d5318d6ac53cd16",
+        script: code,
+        language,
+        versionIndex,
+        stdin,
+      },
+    });
+    return data;
+  };
+
+  const evaluateCode = async () => {
+    showModal();
+    let score = 0;
+    setTotal(tests.length);
+    for (let testcase of tests) {
+      let input = testcase[0];
+      let output = testcase[1];
+      console.log(input);
+      console.log(output);
+      let data = await getCodeOutput(code, language, versionIndex, input);
+      console.log(data.output);
+      if (data.output.trim() == output.trim()) {
+        console.log("correct");
+        score++;
+        setScore(score);
+      }
+    }
+    console.log(score, total);
   };
 
   return (
@@ -171,7 +229,7 @@ const CodeEditor = () => {
         ></Input.TextArea>
       </Card>
       <Row justify="center">
-        <Button style={{ margin: "10px" }} onClick={getOutput}>
+        <Button style={{ margin: "10px" }} onClick={showOutput}>
           Exectute
         </Button>
         <Select
@@ -186,10 +244,15 @@ const CodeEditor = () => {
           <Select.Option value="clouds">Clouds</Select.Option>
           <Select.Option value="cobalt">Cobalt</Select.Option>
         </Select>
+        {tests && (
+          <Button style={{ margin: "10px" }} onClick={evaluateCode}>
+            Evaluate
+          </Button>
+        )}
       </Row>
 
       <Row style={{ marginTop: 30 }} justify="space-around">
-        <Col span={10} style={{ zIndex: 0 }}>
+        <Col style={{ zIndex: 0 }}>
           <AceEditor
             placeholder="Write code here"
             mode={languageMode}
@@ -210,11 +273,19 @@ const CodeEditor = () => {
             }}
           />
         </Col>
-        <Col span={10}>
+        <Modal
+          title="Evaluating..."
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <Progress type="circle" percent={Math.floor((score / total) * 100)} />
+        </Modal>
+        <Col>
           <Card
             title="Output"
             extra={<Button onClick={() => setOutput("")}>Clear</Button>}
-            style={{ height: "500px" }}
+            style={{ height: "500px", minWidth: "350px", marginTop: "30px" }}
             actions={[
               <p>Status Code : {outputData.statusCode}</p>,
               <p>Memory: {outputData.memory}</p>,

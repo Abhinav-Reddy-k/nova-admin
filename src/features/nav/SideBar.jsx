@@ -29,15 +29,15 @@ function SideBar() {
     >
       <Menu mode="inline">
         <Item key="onlineClasses" icon={<SiGoogleclassroom />}>
-          <Link to={`${url}/onlineClasses`}>Online Classes</Link>
+          <Link to="/home/onlineClasses">Online Classes</Link>
         </Item>
 
         <Item key="ide" icon={<AiOutlineCodeSandbox />}>
-          <Link to={`${url}/ide`}>Code Editor</Link>
+          <Link to="/home/ide">Code Editor</Link>
         </Item>
 
         <Item key="codetask" icon={<FaLaptopCode />}>
-          <Link to={`${url}/ide`}>Coding Test</Link>
+          <Link to="/home/test">Coding Test</Link>
         </Item>
 
         <SubMenu key="sub1" title="Study Material" icon={<FaBookReader />}>

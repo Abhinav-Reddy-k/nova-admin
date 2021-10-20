@@ -10,6 +10,8 @@ import OnlineClasses from "../onlineClasses/OnlineClasses";
 import CodeEditor from "../ide/CodeEditor";
 import MyProfile from "../Profile/MyProfile";
 import EditProfile from "../Profile/EditProfile";
+import CodingTasks from "../ide/CodingTasks";
+import CodeAttempt from "../ide/CodeAttempt";
 
 function Home() {
   const { Header, Sider, Content, Footer } = Layout;
@@ -20,8 +22,9 @@ function Home() {
   return (
     <>
       <Layout hasSider={true}>
-        <TopAppBar />
         <SideBar />
+
+        <TopAppBar />
         <Content
           style={{
             marginTop: "50px",
@@ -30,20 +33,26 @@ function Home() {
           }}
         >
           <Switch>
-            <Route exact path={`${path}`}>
+            <Route exact path="/home">
               <Typography.Title>Welcome {username}</Typography.Title>
             </Route>
-            <Route exact path={`${path}/onlineClasses`}>
+            <Route exact path="/home/onlineClasses">
               <OnlineClasses />
             </Route>
-            <Route path={`/home/myprofile`}>
+            <Route exact path="/home/myprofile">
               <MyProfile />
             </Route>
-            <Route path={`${path}/editProfile`}>
+            <Route exact path="/home/editProfile">
               <EditProfile />
             </Route>
-            <Route path={`${path}/ide`}>
+            <Route exact path="/home/ide">
               <CodeEditor />
+            </Route>
+            <Route exact path="/home/test">
+              <CodingTasks />
+            </Route>
+            <Route path="/home/test/attempt/:title">
+              <CodeAttempt />
             </Route>
           </Switch>
         </Content>

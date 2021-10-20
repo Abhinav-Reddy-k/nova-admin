@@ -21,7 +21,15 @@ const ClassCardGrid = () => {
                   width: 240,
                   margin: "8px",
                 }}
-                cover={<img alt="example" src={cls.teacherPhoto} />}
+                cover={
+                  <img
+                    alt="example"
+                    style={{ objectFit: "cover" }}
+                    height="250px"
+                    width="200px"
+                    src={cls.teacherPhoto}
+                  />
+                }
                 actions={[
                   <Button
                     onClick={() =>

@@ -17,7 +17,9 @@ function TopAppBar() {
       defaultSelectedKeys={["logo"]}
     >
       <Menu.Item key="logo">
-        <Link to="/home">NOVA-ADMIN</Link>
+        <Link to="/home" replace>
+          NOVA-ADMIN
+        </Link>
       </Menu.Item>
       <Menu.Item key="logout" onClick={signOut} style={{ float: "right" }}>
         Logout
