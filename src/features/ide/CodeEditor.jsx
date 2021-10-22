@@ -38,7 +38,7 @@ import "ace-builds/src-noconflict/theme-clouds";
 import "ace-builds/src-noconflict/theme-clouds_midnight";
 import "ace-builds/src-noconflict/theme-cobalt";
 
-const CodeEditor = ({ tests }) => {
+const CodeEditor = ({ testCases }) => {
   const [code, setCode] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [stdin, setStdin] = useState("");
@@ -110,10 +110,10 @@ const CodeEditor = ({ tests }) => {
   const evaluateCode = async () => {
     showModal();
     let score = 0;
-    setTotal(tests.length);
-    for (let testcase of tests) {
-      let input = testcase[0];
-      let output = testcase[1];
+    setTotal(testCases.length);
+    for (let testcase of testCases) {
+      let input = testcase.input;
+      let output = testcase.output;
       console.log(input);
       console.log(output);
       let data = await getCodeOutput(code, language, versionIndex, input);
@@ -244,7 +244,7 @@ const CodeEditor = ({ tests }) => {
           <Select.Option value="clouds">Clouds</Select.Option>
           <Select.Option value="cobalt">Cobalt</Select.Option>
         </Select>
-        {tests && (
+        {testCases && (
           <Button style={{ margin: "10px" }} onClick={evaluateCode}>
             Evaluate
           </Button>

@@ -8,13 +8,13 @@ import { getCurrentTask } from "./codeTasksSlice";
 const CodeAttempt = () => {
   const match = useRouteMatch();
   const currentTask = useSelector(getCurrentTask(match.params.title));
-  const tests = Object.entries(currentTask["test cases"]);
+  const testCases = currentTask["testCases"];
   return (
     <>
       <Card style={{ margin: "10px" }}>
         <pre>{currentTask.description.replace(/\\n/g, "\n")}</pre>
       </Card>
-      <CodeEditor tests={tests} />
+      <CodeEditor testCases={testCases} />
     </>
   );
 };

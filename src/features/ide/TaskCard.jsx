@@ -1,6 +1,10 @@
 import React from "react";
-import { Button, Card } from "antd";
+import { Button, Card, message } from "antd";
 import { Link } from "react-router-dom";
+import {
+  startCodingTest,
+  stopCodingTest,
+} from "../../app/firebase/firestore/codingCollection";
 
 const TaskCard = ({ taskData, index }) => {
   const { title, teacherPhoto, isStarted, description } = taskData;
@@ -22,10 +26,26 @@ const TaskCard = ({ taskData, index }) => {
         />
       }
       actions={[
-        <Button disabled={!isStarted} onClick={() => {}}>
+        <Button
+          disabled={!isStarted}
+          onClick={() =>
+            stopCodingTest(title)
+              .then(message.warn("Code task Stopped"))
+              .catch((err) => message.error(err))
+          }
+        >
           Stop
         </Button>,
-        <Button disabled={isStarted}>{isStarted ? "Started" : "start"}</Button>,
+        <Button
+          disabled={isStarted}
+          onClick={() =>
+            startCodingTest(title)
+              .then(message.success("Code task Stopped"))
+              .catch((err) => message.error(err))
+          }
+        >
+          {isStarted ? "Started" : "start"}
+        </Button>,
         <Button>
           <Link to={`/home/test/attempt/${title}`}>Attempt</Link>
         </Button>,

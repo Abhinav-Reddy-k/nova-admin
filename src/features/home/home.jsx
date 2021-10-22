@@ -1,6 +1,6 @@
 import { Layout, Typography } from "antd";
 import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, Link, Redirect } from "react-router-dom";
 
 import SideBar from "../nav/SideBar";
 import TopAppBar from "../nav/TopAppBar";
@@ -12,6 +12,7 @@ import MyProfile from "../Profile/MyProfile";
 import EditProfile from "../Profile/EditProfile";
 import CodingTasks from "../ide/CodingTasks";
 import CodeAttempt from "../ide/CodeAttempt";
+import NewCodeTestForm from "../ide/NewCodeTestForm";
 
 function Home() {
   const { Header, Sider, Content, Footer } = Layout;
@@ -51,9 +52,13 @@ function Home() {
             <Route exact path="/home/test">
               <CodingTasks />
             </Route>
+            <Route path="/home/test/new">
+              <NewCodeTestForm />
+            </Route>
             <Route path="/home/test/attempt/:title">
               <CodeAttempt />
             </Route>
+            <Redirect to="/home" />
           </Switch>
         </Content>
       </Layout>

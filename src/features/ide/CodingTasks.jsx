@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import FloatingActionButton from "../../app/common/FloatingActionButton";
 import { myCodingTestListener } from "../../app/firebase/firestore/codingCollection";
 import { selectProfileData } from "../Profile/profileSlice";
@@ -30,7 +31,9 @@ const CodingTasks = () => {
   return (
     <div>
       <CodeTestsGrid />
-      <FloatingActionButton tooltip="Start new coding test" />
+      <Link to="/home/test/new">
+        <FloatingActionButton tooltip="Start new coding test" />
+      </Link>
     </div>
   );
 };
