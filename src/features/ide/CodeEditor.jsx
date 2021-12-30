@@ -13,6 +13,8 @@ import { Button } from "antd/lib/radio";
 import axios from "axios";
 import React, { useState } from "react";
 import AceEditor from "react-ace-builds";
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
 import { FaPython } from "react-icons/fa";
 import { DiSqllite } from "react-icons/di";
 
@@ -43,7 +45,7 @@ const CodeEditor = ({ testCases }) => {
   const [isLoading, setLoading] = useState(false);
   const [stdin, setStdin] = useState("");
   const [languageMode, setLangMode] = useState("python");
-  const [language, setLang] = useState("python");
+  const [language, setLang] = useState("python3");
   const [versionIndex, setVerIndex] = useState(3);
   const [theme, setTheme] = useState("chrome");
 
@@ -59,6 +61,7 @@ const CodeEditor = ({ testCases }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [score, setScore] = useState(0);
   const [total, setTotal] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -68,12 +71,14 @@ const CodeEditor = ({ testCases }) => {
     setIsModalVisible(false);
     setScore(0);
     setTotal(0);
+    setProgress(0);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
     setScore(0);
     setTotal(0);
+    setProgress(0);
   };
   const setIdeSettings = (mode, language, versionIndex) => {
     setLang(language);
@@ -91,9 +96,6 @@ const CodeEditor = ({ testCases }) => {
   const getCodeOutput = async (code, language, versionIndex, stdin) => {
     const { data } = await axios("https://api.jdoodle.com/v1/execute", {
       method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
       data: {
         clientId: "504d3f8e7aa550a36678ac75c6daf92b",
         clientSecret:
@@ -110,6 +112,7 @@ const CodeEditor = ({ testCases }) => {
   const evaluateCode = async () => {
     showModal();
     let score = 0;
+    let progress = 0;
     setTotal(testCases.length);
     for (let testcase of testCases) {
       let input = testcase.input;
@@ -123,13 +126,30 @@ const CodeEditor = ({ testCases }) => {
         score++;
         setScore(score);
       }
+      progress++;
+      setProgress(progress);
     }
     console.log(score, total);
   };
 
+  const { width, height } = useWindowSize();
+
   return (
     <>
-      <Menu mode="horizontal" style={{ margin: "10px" }}>
+      <Confetti
+        recycle={false}
+        tweenDuration={7000}
+        width={width}
+        height={height}
+        numberOfPieces={600}
+        run={score === total && score > 0}
+      />
+
+      <Menu
+        mode="horizontal"
+        style={{ margin: "10px" }}
+        defaultSelectedKeys={["python3"]}
+      >
         <Menu.Item
           onClick={() => {
             setIdeSettings("python", "python3", 3);
@@ -279,7 +299,20 @@ const CodeEditor = ({ testCases }) => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <Progress type="circle" percent={Math.floor((score / total) * 100)} />
+          <Row>
+            <Col>
+              <Progress
+                type="circle"
+                strokeColor="red"
+                percent={100 * (progress / total)}
+                success={{
+                  percent: 100 * (score / total),
+                  strokeColor: "green",
+                }}
+              />
+            </Col>
+            <Col></Col>
+          </Row>
         </Modal>
         <Col>
           <Card

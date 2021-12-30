@@ -2,18 +2,20 @@ import React from "react";
 import { Button, Card, message } from "antd";
 import { Link } from "react-router-dom";
 import {
+  deleteCodingTest,
   startCodingTest,
   stopCodingTest,
 } from "../../app/firebase/firestore/codingCollection";
 
 const TaskCard = ({ taskData, index }) => {
-  const { title, teacherPhoto, isStarted, description } = taskData;
+  const { title, teacherPhoto, isStarted, subject, section, teacher } =
+    taskData;
   return (
     <Card
       hoverable
       key={index}
       style={{
-        width: 240,
+        width: 330,
         margin: "8px",
       }}
       cover={
@@ -40,19 +42,31 @@ const TaskCard = ({ taskData, index }) => {
           disabled={isStarted}
           onClick={() =>
             startCodingTest(title)
-              .then(message.success("Code task Stopped"))
+              .then(message.success("Code task Started"))
               .catch((err) => message.error(err))
           }
         >
           {isStarted ? "Started" : "start"}
         </Button>,
-        <Button>
-          <Link to={`/home/test/attempt/${title}`}>Attempt</Link>
+        <Link to={`/home/test/attempt/${title}`}>
+          <Button>Attempt</Button>
+        </Link>,
+        <Button
+          onClick={() =>
+            deleteCodingTest(title)
+              .then(message.warn("Deleted from database"))
+              .catch((err) => message.error(err))
+          }
+        >
+          Del
         </Button>,
       ]}
     >
-      <Card.Meta title={title} description="description" />
-      <pre> --seb</pre>
+      <Card.Meta title={title} description={`${subject} (${section})`} />
+      <pre>
+        <br />
+        {`  -- ${teacher}`}
+      </pre>
     </Card>
   );
 };

@@ -2,6 +2,7 @@ import { Card, Col, message, Row } from "antd";
 import { Button } from "antd/lib/radio";
 import React from "react";
 import { useSelector } from "react-redux";
+import Nodata from "../../app/common/Nodata";
 import { stopOnlineClass } from "../../app/firebase/firestore/classesCollection";
 import { selectCurrentClasses } from "./classesSclice";
 
@@ -11,6 +12,7 @@ const ClassCardGrid = () => {
   return (
     <>
       <Row justify="center">
+        {currentClasses.length === 0 && <Nodata />}
         {currentClasses.map((cls, index) => {
           return (
             <Col>
@@ -52,10 +54,13 @@ const ClassCardGrid = () => {
                 ]}
               >
                 <Meta
-                  title={`${cls.subject} (${cls.section})`}
-                  description={cls.description}
+                  title={`${cls.description}`}
+                  description={`${cls.subject} (${cls.section})`}
                 />
-                <pre> --Taught by {cls.teacher}</pre>
+                <pre>
+                  <br />
+                  {`  -- ${cls.teacher}`}
+                </pre>
               </Card>
             </Col>
           );

@@ -1,8 +1,9 @@
-import React from "react";
-import CodeEditor from "./CodeEditor";
 import { Card } from "antd";
-import { useRouteMatch } from "react-router";
+import React from "react";
 import { useSelector } from "react-redux";
+import { useRouteMatch } from "react-router";
+
+import CodeEditor from "./CodeEditor";
 import { getCurrentTask } from "./codeTasksSlice";
 
 const CodeAttempt = () => {

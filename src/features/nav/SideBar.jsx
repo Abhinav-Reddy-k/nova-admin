@@ -14,20 +14,27 @@ function SideBar() {
   const { SubMenu, Item } = Menu;
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => setCollapsed(collapsed);
-  const { url } = useRouteMatch();
   return (
     <Sider
       width={200}
       theme="light"
       style={{
-        marginTop: "45px",
+        overflow: "auto",
+        height: "100vh",
+        position: "sticky",
+        top: 0,
         left: 0,
       }}
       collapsible
       collapsed={collapsed}
       onCollapse={onCollapse}
     >
-      <Menu mode="inline">
+      <Menu mode="inline" defaultSelectedKeys={["logo"]}>
+        <Item key="logo">
+          <Link to="/home" replace>
+            NOVA-ADMIN
+          </Link>
+        </Item>
         <Item key="onlineClasses" icon={<SiGoogleclassroom />}>
           <Link to="/home/onlineClasses">Online Classes</Link>
         </Item>

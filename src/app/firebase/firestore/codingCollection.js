@@ -63,3 +63,19 @@ export const addNewCodingTest = (
     throw error.message;
   }
 };
+
+export const deleteCodingTest = async (title) => {
+  try {
+    let docref = await db
+      .collection("coding tests")
+      .where("title", "==", title)
+      .limit(1)
+      .get();
+    docref.forEach((doc) => {
+      doc.ref.delete();
+    });
+    console.log("Coding test deleted");
+  } catch (error) {
+    throw error.message;
+  }
+};
