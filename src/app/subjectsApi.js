@@ -1,147 +1,91 @@
+const option = (label, value) => {
+  return {
+    label,
+    value,
+  };
+};
+
+const cseFirstYearFirstSem = [
+  option("M1", "M1"),
+  option("CHEMISTRY", "CHEMISTRY"),
+  option("ENGLISH", "ENGLISH"),
+  option("BEE", "BEE"),
+];
+
+const cseFirstYearSecondSem = [
+  option("M2", "M2"),
+  option("EG", "EG"),
+  option("PPS", "PPS"),
+  option("AP", "AP"),
+];
+
+const cseSecondYearFirstSem = [
+  option("ADE", "ADE"),
+  option("COA", "COA"),
+  option("DS", "DS"),
+  option("OOP", "OOP"),
+];
+
+const cseSecondYearSecondSem = [
+  option("JAVA", "JAVA"),
+  option("OS", "OS"),
+  option("DBMS", "DBMS"),
+  option("BEFA", "BEFA"),
+  option("DM", "DM"),
+];
+
+const cseThirdYearFirstSem = [
+  option("WT", "WT"),
+  option("FLAT", "FLAT"),
+  option("CN", "CN"),
+  option("SE", "SE"),
+];
+
+const cseThirdYearSecondSem = [
+  option("ML", "ML"),
+  option("Compiler Design", "Compiler Design"),
+  option(
+    "Design and Analysis of Algorithms",
+    "Design and Analysis of Algorithms"
+  ),
+];
+
+const cseFourthYearFirstSem = [
+  option("Cryptography & Network Security", "Cryptography & Network Security"),
+  option("Data Mining", "Data Mining"),
+];
+
+const cseFourthYearSecondSem = [
+  option("Organizational Behaviour", "Organizational Behaviour"),
+];
+const cse = {
+  1: [...cseFirstYearFirstSem, ...cseFirstYearSecondSem],
+  2: [...cseSecondYearFirstSem, ...cseSecondYearSecondSem],
+  3: [...cseThirdYearFirstSem, ...cseThirdYearSecondSem],
+  4: [...cseFourthYearFirstSem, ...cseFourthYearSecondSem],
+};
+
+const cseSections = ["A", "B", "C", "D", "E", "F", "G"];
+const years = ["First", "Second", "Third", "Fourth"];
 export const classesOptions = [
   {
-    label: "CSE",
-    value: "cse",
+    ...option("CSE", "cse"),
     children: [
-      {
-        label: "First",
-        value: "first",
+      ...years.map((year, ind) => ({
+        ...option(year, year.toLowerCase()),
         children: [
-          {
-            label: "A",
-            value: "A",
-            children: [
-              { label: "M2", value: "M2" },
-              { label: "EG", value: "EG" },
-              { label: "PPS", value: "PPS" },
-              { label: "AP", value: "AP" },
-            ],
-          },
-          {
-            label: "B",
-            value: "B",
-            children: [
-              { label: "M2", value: "M2" },
-              { label: "EG", value: "EG" },
-              { label: "PPS", value: "PPS" },
-              { label: "AP", value: "AP" },
-            ],
-          },
-          {
-            label: "C",
-            value: "C",
-            children: [
-              { label: "M2", value: "M2" },
-              { label: "EG", value: "EG" },
-              { label: "PPS", value: "PPS" },
-              { label: "AP", value: "AP" },
-            ],
-          },
+          ...cseSections.map((section) => ({
+            ...option(section, section),
+            children: cse[ind + 1],
+          })),
         ],
-      },
-      {
-        label: "Second",
-        value: "second",
-        children: [
-          {
-            label: "A",
-            value: "A",
-            children: [
-              { label: "JAVA", value: "JAVA" },
-              { label: "OS", value: "OS" },
-              { label: "DBMS", value: "DBMS" },
-              { label: "BEFA", value: "BEFA" },
-              { label: "DS", value: "DS" },
-            ],
-          },
-          {
-            label: "B",
-            value: "B",
-            children: [
-              { label: "JAVA", value: "JAVA" },
-              { label: "OS", value: "OS" },
-              { label: "DBMS", value: "DBMS" },
-              { label: "BEFA", value: "BEFA" },
-              { label: "DS", value: "DS" },
-            ],
-          },
-        ],
-      },
-      { label: "Third", value: "third" },
-      { label: "Fourth", value: "fourth" },
+      })),
     ],
   },
   {
     label: "ECE",
     value: "ece",
-    children: [
-      {
-        label: "First",
-        value: "first",
-        children: [
-          {
-            label: "A",
-            value: "A",
-            children: [
-              { label: "M2", value: "M2" },
-              { label: "EG", value: "EG" },
-              { label: "PPS", value: "PPS" },
-              { label: "AP", value: "AP" },
-            ],
-          },
-          {
-            label: "B",
-            value: "B",
-            children: [
-              { label: "M2", value: "M2" },
-              { label: "EG", value: "EG" },
-              { label: "PPS", value: "PPS" },
-              { label: "AP", value: "AP" },
-            ],
-          },
-          {
-            label: "C",
-            value: "C",
-            children: [
-              { label: "M2", value: "M2" },
-              { label: "EG", value: "EG" },
-              { label: "PPS", value: "PPS" },
-              { label: "AP", value: "AP" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Second",
-        value: "second",
-        children: [
-          {
-            label: "A",
-            value: "A",
-            children: [
-              { label: "JAVA", value: "JAVA" },
-              { label: "OS", value: "OS" },
-              { label: "DBMS", value: "DBMS" },
-              { label: "BEFA", value: "BEFA" },
-              { label: "DS", value: "DS" },
-            ],
-          },
-          {
-            label: "B",
-            value: "B",
-            children: [
-              { label: "JAVA", value: "JAVA" },
-              { label: "OS", value: "OS" },
-              { label: "DBMS", value: "DBMS" },
-              { label: "BEFA", value: "BEFA" },
-              { label: "DS", value: "DS" },
-            ],
-          },
-        ],
-      },
-      { label: "Third", value: "third" },
-      { label: "Fourth", value: "fourth" },
-    ],
+    children: [],
   },
   {
     label: "IT",
