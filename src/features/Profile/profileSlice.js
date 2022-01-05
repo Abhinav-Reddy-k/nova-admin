@@ -5,7 +5,7 @@ import { getUserProfile } from "../../app/firebase/firestore/teachersCollection"
 import { hideSpinner, showSpinner } from "../home/homeSlice";
 
 const initialState = {
-  data: { isTeacher: false, classes: [] },
+  data: {},
   hasProfileData: null,
 };
 
@@ -15,6 +15,10 @@ const profileSlice = createSlice({
   reducers: {
     profileLoaded: (profile, action) => {
       profile.data = action.payload;
+      if (!profile.data.photoURL) {
+        profile.data.photoURL =
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+      }
       profile.hasProfileData = true;
     },
     profileCleared: (profile) => {
