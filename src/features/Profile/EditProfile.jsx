@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import { selectProfileData } from "./profileSlice";
 import { editProfileData } from "../../app/firebase/firestore/teachersCollection";
 import { selectUid } from "../auth/authSlice";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const formItemLayout = {
   labelCol: {
@@ -54,13 +54,13 @@ const EditProfile = () => {
     classes: classes,
   };
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const uid = useSelector(selectUid);
   const onFinish = async (val) => {
     try {
       await editProfileData({ ...val, uid });
       message.success("Successfully Changed");
-      history.replace("/home/myprofile");
+      navigate("/home/myprofile", { replace: true });
     } catch (err) {
       message.error(err.message);
       console.log(err);

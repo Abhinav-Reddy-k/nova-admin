@@ -1,13 +1,10 @@
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import {
-  AiOutlineCode,
-  AiOutlineCodeSandbox,
-  AiTwotoneFileText,
-} from "react-icons/ai";
+import { AiOutlineCodeSandbox, AiTwotoneFileText } from "react-icons/ai";
 import { SiGoogleclassroom } from "react-icons/si";
 import { FaBookReader, FaLaptopCode } from "react-icons/fa";
-import { useRouteMatch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { MdDashboard } from "react-icons/md";
 
 function SideBar() {
   const { Sider } = Layout;
@@ -30,9 +27,9 @@ function SideBar() {
       onCollapse={onCollapse}
     >
       <Menu mode="inline" defaultSelectedKeys={["logo"]}>
-        <Item key="logo">
+        <Item key="logo" icon={<MdDashboard />}>
           <Link to="/home" replace>
-            NOVA-ADMIN
+            Nova Admin
           </Link>
         </Item>
         <Item key="onlineClasses" icon={<SiGoogleclassroom />}>
@@ -59,10 +56,7 @@ function SideBar() {
           <Item key="3">Os</Item>
           <Item key="4">DBMS</Item>
         </SubMenu>
-        <SubMenu key="sub2" title="Results">
-          <Item key="5">Java</Item>
-          <Item key="6">os</Item>
-        </SubMenu>
+
         <Item key="7" icon={<AiTwotoneFileText />}>
           Assignments
         </Item>

@@ -1,7 +1,7 @@
 import { message } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { deleteUser } from "../../app/firebase/authService";
 import { profileDataListener } from "../../app/firebase/firestore/teachersCollection";
 import { selectUid } from "../auth/authSlice";
@@ -22,7 +22,7 @@ const MyProfile = () => {
   ];
   const uid = useSelector(selectUid);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     console.log("called");
     profileDataListener(uid).onSnapshot((x) =>
@@ -79,7 +79,7 @@ const MyProfile = () => {
 
           <div class="profile-card-ctr">
             <button
-              onClick={() => history.replace("/home/editProfile")}
+              onClick={() => navigate("/home/editProfile", { replace: true })}
               class="profile-card__button button--blue js-message-btn"
             >
               Edit My Account
