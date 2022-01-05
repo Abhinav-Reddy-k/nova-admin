@@ -6,7 +6,7 @@ import {
   AiOutlineLock,
   AiOutlineUser,
 } from "react-icons/ai";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   signInWithEmailPassword,
   socialLogin,
@@ -14,12 +14,12 @@ import {
 import "./loginStyles.css";
 
 function Login() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
     signInWithEmailPassword(values)
       .then((loginInfo) => {
-        history.replace("/home");
+        navigate("/home", { replace: true });
       })
       .catch((err) => message.error(err.message));
   };

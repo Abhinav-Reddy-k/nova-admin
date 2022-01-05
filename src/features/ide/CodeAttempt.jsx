@@ -1,14 +1,14 @@
 import { Card } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
-import { useRouteMatch } from "react-router";
+import { useParams } from "react-router";
 
 import CodeEditor from "./CodeEditor";
 import { getCurrentTask } from "./codeTasksSlice";
 
 const CodeAttempt = () => {
-  const match = useRouteMatch();
-  const currentTask = useSelector(getCurrentTask(match.params.title));
+  const params = useParams();
+  const currentTask = useSelector(getCurrentTask(params.title));
   const testCases = currentTask["testCases"];
   return (
     <>
