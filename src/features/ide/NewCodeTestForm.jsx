@@ -1,21 +1,11 @@
 import React from "react";
-import {
-  Button,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Space,
-  Typography,
-} from "antd";
+import { Button, Checkbox, Col, Form, Input, Row, Typography } from "antd";
 import { MinusCircleOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { selectClasses, selectProfileData } from "../Profile/profileSlice";
 import { addNewCodingTest } from "../../app/firebase/firestore/codingCollection";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const formItemLayout = {
   labelCol: {
@@ -37,12 +27,12 @@ const formItemLayoutWithOutLabel = {
 const NewCodeTestForm = () => {
   const classes = useSelector(selectClasses);
   const teacherProfile = useSelector(selectProfileData);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
     console.log("Received values of form:", values);
     addNewCodingTest(values, teacherProfile);
-    history.push("/home/test");
+    navigate("/home/test");
   };
 
   let options = classes.map((cls, index) => {
