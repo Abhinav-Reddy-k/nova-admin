@@ -8,7 +8,7 @@ import {
 } from "../../app/firebase/firestore/codingCollection";
 
 const TaskCard = ({ taskData, index }) => {
-  const { title, teacherPhoto, isStarted, subject, section, teacher } =
+  const { title, teacherPhoto, isStarted, subject, section, teacher, id } =
     taskData;
   return (
     <Card
@@ -31,7 +31,7 @@ const TaskCard = ({ taskData, index }) => {
         <Button
           disabled={!isStarted}
           onClick={() =>
-            stopCodingTest(title)
+            stopCodingTest(id)
               .then(message.warn("Code task Stopped"))
               .catch((err) => message.error(err))
           }
@@ -41,7 +41,7 @@ const TaskCard = ({ taskData, index }) => {
         <Button
           disabled={isStarted}
           onClick={() =>
-            startCodingTest(title)
+            startCodingTest(id)
               .then(message.success("Code task Started"))
               .catch((err) => message.error(err))
           }
@@ -53,7 +53,7 @@ const TaskCard = ({ taskData, index }) => {
         </Link>,
         <Button
           onClick={() =>
-            deleteCodingTest(title)
+            deleteCodingTest(id)
               .then(message.warn("Deleted from database"))
               .catch((err) => message.error(err))
           }

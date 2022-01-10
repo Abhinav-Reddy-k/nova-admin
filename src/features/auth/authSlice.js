@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { message } from "antd";
 
 import { authStateListener } from "../../app/firebase/authService";
 
@@ -46,7 +47,6 @@ export const authSlice = createSlice({
 export function verifyAuth() {
   return function (dispatch) {
     authStateListener((userInfo) => {
-      console.log(userInfo);
       if (userInfo) {
         dispatch(
           login({
@@ -57,10 +57,10 @@ export function verifyAuth() {
             emailVerified: userInfo.emailVerified,
           })
         );
-        console.log("Logged in");
+        message.success("Logged in");
       } else {
         dispatch(logout());
-        console.log("Logged out");
+        message.success("Logged out");
       }
     });
   };

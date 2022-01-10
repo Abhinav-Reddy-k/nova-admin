@@ -34,13 +34,7 @@ export const myClassesListener = (uid) => {
   return db.collection("online classes").where("teacherId", "==", uid);
 };
 
-export const stopOnlineClass = async ({ subject, branch, year, section }) => {
-  const querySnapshot = await db
-    .collection("online classes")
-    .where("subject", "==", subject)
-    .where("year", "==", year)
-    .where("branch", "==", branch)
-    .where("section", "==", section)
-    .get();
-  return querySnapshot.forEach((doc) => doc.ref.delete());
+export const stopOnlineClass = async (id) => {
+  const querySnapshot = await db.collection("online classes").doc(id).delete();
+  return querySnapshot;
 };

@@ -19,6 +19,7 @@ const CodingTasks = () => {
           myCodingTests.push({
             ...docData,
             startTime: docData.startTime.toDate().toString(),
+            id: doc.id,
           });
         });
         dispatch(myCodingTaskesLoaded(myCodingTests));

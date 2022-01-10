@@ -5,33 +5,25 @@ export const myCodingTestListener = (uid) => {
   return db.collection("coding tests").where("teacherId", "==", uid);
 };
 
-export const startCodingTest = async (title) => {
+export const startCodingTest = async (id) => {
   try {
     let docref = await db
       .collection("coding tests")
-      .where("title", "==", title)
-      .limit(1)
-      .get();
-    docref.forEach((doc) => {
-      doc.ref.update({ isStarted: true });
-    });
-    console.log("Coding test started");
+      .doc(id)
+      .update({ isStarted: true });
+    return docref;
   } catch (error) {
     throw error.message;
   }
 };
 
-export const stopCodingTest = async (title) => {
+export const stopCodingTest = async (id) => {
   try {
     let docref = await db
       .collection("coding tests")
-      .where("title", "==", title)
-      .limit(1)
-      .get();
-    docref.forEach((doc) => {
-      doc.ref.update({ isStarted: false });
-    });
-    console.log("Coding test stopped");
+      .doc(id)
+      .update({ isStarted: false });
+    return docref;
   } catch (error) {
     throw error.message;
   }
@@ -64,17 +56,10 @@ export const addNewCodingTest = (
   }
 };
 
-export const deleteCodingTest = async (title) => {
+export const deleteCodingTest = async (id) => {
   try {
-    let docref = await db
-      .collection("coding tests")
-      .where("title", "==", title)
-      .limit(1)
-      .get();
-    docref.forEach((doc) => {
-      doc.ref.delete();
-    });
-    console.log("Coding test deleted");
+    let docref = await db.collection("coding tests").doc(id).delete();
+    return docref;
   } catch (error) {
     throw error.message;
   }

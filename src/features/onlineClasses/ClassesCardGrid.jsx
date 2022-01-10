@@ -35,7 +35,7 @@ const ClassCardGrid = () => {
                 actions={[
                   <Button
                     onClick={() =>
-                      stopOnlineClass(cls)
+                      stopOnlineClass(cls.id)
                         .then(message.warn("Class Stopped"))
                         .catch((err) => message.error(err.message))
                     }

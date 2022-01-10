@@ -24,7 +24,6 @@ const MyProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("called");
     profileDataListener(uid).onSnapshot((x) =>
       dispatch(profileLoaded(x.data()))
     );

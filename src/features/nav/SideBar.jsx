@@ -5,6 +5,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { FaBookReader, FaLaptopCode } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
+import { ImUserCheck } from "react-icons/im";
 
 function SideBar() {
   const { Sider } = Layout;
@@ -42,6 +43,13 @@ function SideBar() {
 
         <Item key="codetask" icon={<FaLaptopCode />}>
           <Link to="/home/test">Coding Test</Link>
+        </Item>
+
+        <Item key="attendance" icon={<ImUserCheck />}>
+          <Link to="/home/attendance">Attendance</Link>
+        </Item>
+        <Item key="resources" icon={<ImUserCheck />}>
+          <Link to="/home/resources">Resources</Link>
         </Item>
 
         <SubMenu key="sub1" title="Study Material" icon={<FaBookReader />}>

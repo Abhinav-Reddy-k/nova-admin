@@ -300,7 +300,7 @@ const CodeEditor = ({ testCases }) => {
           onCancel={handleCancel}
         >
           <Row>
-            <Col>
+            <Col span={12}>
               <Progress
                 type="circle"
                 strokeColor="red"
@@ -311,7 +311,10 @@ const CodeEditor = ({ testCases }) => {
                 }}
               />
             </Col>
-            <Col></Col>
+            <Col>
+              <pre>{`score: ${score}/${total}`}</pre>
+              <pre>{`failed testcases: ${total - score}`}</pre>
+            </Col>
           </Row>
         </Modal>
         <Col>

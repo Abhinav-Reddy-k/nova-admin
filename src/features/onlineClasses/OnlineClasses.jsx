@@ -101,6 +101,7 @@ const OnlineClasses = () => {
           myClasses.push({
             ...docData,
             startTime: docData.startTime.toDate().toString(),
+            id: doc.id,
           });
         });
         dispatch(myClassesLoaded(myClasses));

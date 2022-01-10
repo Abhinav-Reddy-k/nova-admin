@@ -69,7 +69,7 @@ export const getUserProfile = async (uid) => {
   try {
     let doc = await teacherProfileDoc.get();
     if (doc.exists) {
-      return { ...doc.data(), isTeacher: true };
+      return doc.data();
     }
   } catch (error) {
     console.log(error);
