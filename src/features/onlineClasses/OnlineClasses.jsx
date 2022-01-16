@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Form, Input, Checkbox } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { selectClasses, selectProfileData } from "../Profile/profileSlice";
 import {
   myClassesListener,
@@ -10,14 +10,18 @@ import { myClassesLoaded, selectCurrentClasses } from "./classesSclice";
 import ClassCardGrid from "./ClassesCardGrid";
 import FloatingActionButton from "../../app/common/FloatingActionButton";
 
-const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+const CollectionCreateForm = ({
+  visible,
+  onCreate,
+  onCancel,
+  classes,
+  currentClasses,
+}) => {
   const [form] = Form.useForm();
-  let currentClasses = useSelector(selectCurrentClasses);
   currentClasses = currentClasses.map((cls) => {
     let { subject, branch, section, year } = cls;
     return `${subject}${branch}${section}${year}`;
   });
-  const classes = useSelector(selectClasses);
   let options = classes.map((cls, index) => {
     return {
       label: `${cls.subject} (${cls.section})`,
@@ -83,10 +87,13 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   );
 };
 
-const OnlineClasses = () => {
+const OnlineClasses = ({
+  classes,
+  currentClasses,
+  myClassesLoaded,
+  teacherProfile,
+}) => {
   const [visible, setVisible] = useState(false);
-  const teacherProfile = useSelector(selectProfileData);
-  const dispatch = useDispatch();
   const onCreate = (values) => {
     startOnlineClass(values, teacherProfile);
     setVisible(false);
@@ -104,7 +111,7 @@ const OnlineClasses = () => {
             id: doc.id,
           });
         });
-        dispatch(myClassesLoaded(myClasses));
+        myClassesLoaded(myClasses);
       }
     );
     return () => {
@@ -120,6 +127,8 @@ const OnlineClasses = () => {
         tooltip="Start new class"
       />
       <CollectionCreateForm
+        currentClasses={currentClasses}
+        classes={classes}
         visible={visible}
         onCreate={onCreate}
         onCancel={() => {
@@ -130,4 +139,18 @@ const OnlineClasses = () => {
   );
 };
 
-export default OnlineClasses;
+const mapStateToProps = (state) => {
+  return {
+    classes: selectClasses(state),
+    teacherProfile: selectProfileData(state),
+    currentClasses: selectCurrentClasses(state),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    myClassesLoaded: (classes) => dispatch(myClassesLoaded(classes)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OnlineClasses);

@@ -1,6 +1,8 @@
 import firebase from "./firebaseConfig";
 const storage = firebase.storage();
+if (window.location.hostname === "localhost"){
 storage.useEmulator("localhost", 9199);
+}
 const storageRef = storage.ref();
 
 export const upLoadResourceFile = (file, path) => {

@@ -1,13 +1,13 @@
-import { Button, message } from "antd";
+import { message } from "antd";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 import { sendEmailVerification } from "../../app/firebase/authService";
 import AuthHeader from "../auth/ui/AuthHeader";
 import { selectEmail } from "./../auth/authSlice";
 import ReistrationSteps from "./ReistrationSteps";
 
-function VerifyEmail() {
+function VerifyEmail({ email }) {
   const sendMail = async () => {
     try {
       sendEmailVerification();
@@ -16,7 +16,6 @@ function VerifyEmail() {
       message.error(error.message);
     }
   };
-  const email = useSelector(selectEmail);
   useEffect(() => {
     sendMail();
   }, [email]);
@@ -64,4 +63,8 @@ function VerifyEmail() {
   );
 }
 
-export default VerifyEmail;
+const mapStateToProps = (state) => ({
+  email: selectEmail(state),
+});
+
+export default connect(mapStateToProps)(VerifyEmail);

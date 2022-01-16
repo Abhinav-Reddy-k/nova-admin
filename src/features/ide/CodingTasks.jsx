@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import FloatingActionButton from "../../app/common/FloatingActionButton";
 import { myCodingTestListener } from "../../app/firebase/firestore/codingCollection";
@@ -7,9 +7,7 @@ import { selectProfileData } from "../Profile/profileSlice";
 import { myCodingTaskesLoaded } from "./codeTasksSlice";
 import CodeTestsGrid from "./CodeTestsGrid";
 
-const CodingTasks = () => {
-  const teacherProfile = useSelector(selectProfileData);
-  const dispatch = useDispatch();
+const CodingTasks = ({ teacherProfile, myCodingTaskesLoaded }) => {
   useEffect(() => {
     const unsubscribe = myCodingTestListener(teacherProfile.uid).onSnapshot(
       (querySnapshot) => {
@@ -22,7 +20,7 @@ const CodingTasks = () => {
             id: doc.id,
           });
         });
-        dispatch(myCodingTaskesLoaded(myCodingTests));
+        myCodingTaskesLoaded(myCodingTests);
       }
     );
     return () => {
@@ -39,4 +37,17 @@ const CodingTasks = () => {
   );
 };
 
-export default CodingTasks;
+const mapStateToProps = (state) => {
+  return {
+    teacherProfile: selectProfileData(state),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    myCodingTaskesLoaded: (codingTasks) =>
+      dispatch(myCodingTaskesLoaded(codingTasks)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CodingTasks);

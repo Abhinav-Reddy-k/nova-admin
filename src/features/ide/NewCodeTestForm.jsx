@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Checkbox, Col, Form, Input, Row, Typography } from "antd";
 import { MinusCircleOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { selectClasses, selectProfileData } from "../Profile/profileSlice";
 import { addNewCodingTest } from "../../app/firebase/firestore/codingCollection";
 import { useNavigate } from "react-router-dom";
@@ -24,9 +24,7 @@ const formItemLayoutWithOutLabel = {
   },
 };
 
-const NewCodeTestForm = () => {
-  const classes = useSelector(selectClasses);
-  const teacherProfile = useSelector(selectProfileData);
+const NewCodeTestForm = ({ classes, teacherProfile }) => {
   const navigate = useNavigate();
 
   const onFinish = (values) => {
@@ -151,4 +149,11 @@ const NewCodeTestForm = () => {
   );
 };
 
-export default NewCodeTestForm;
+const mapStateToProps = (state) => {
+  return {
+    classes: selectClasses(state),
+    teacherProfile: selectProfileData(state),
+  };
+};
+
+export default connect(mapStateToProps)(NewCodeTestForm);

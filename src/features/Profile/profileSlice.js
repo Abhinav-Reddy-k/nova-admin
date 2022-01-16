@@ -5,7 +5,9 @@ import { getUserProfile } from "../../app/firebase/firestore/teachersCollection"
 import { hideSpinner, showSpinner } from "../home/homeSlice";
 
 const initialState = {
-  data: {},
+  data: {
+    photoURL: null,
+  },
   hasProfileData: null,
 };
 

@@ -1,34 +1,30 @@
 import { Card, Col, message, Row } from "antd";
 import { Button } from "antd/lib/radio";
 import React from "react";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import Nodata from "../../app/common/Nodata";
 import { stopOnlineClass } from "../../app/firebase/firestore/classesCollection";
 import { selectCurrentClasses } from "./classesSclice";
 
-const ClassCardGrid = () => {
+const ClassCardGrid = ({ currentClasses }) => {
   const { Meta } = Card;
-  const currentClasses = useSelector(selectCurrentClasses);
   return (
     <>
       <Row justify="center">
         {currentClasses.length === 0 && <Nodata />}
         {currentClasses.map((cls, index) => {
           return (
-            <Col>
+            <Col xs={24} sm={24} md={12} lg={12} xl={6}>
               <Card
                 hoverable
                 key={index}
                 style={{
-                  width: 240,
                   margin: "8px",
                 }}
                 cover={
                   <img
                     alt="example"
                     style={{ objectFit: "cover" }}
-                    height="250px"
-                    width="200px"
                     src={cls.teacherPhoto}
                   />
                 }
@@ -70,4 +66,10 @@ const ClassCardGrid = () => {
   );
 };
 
-export default ClassCardGrid;
+const mapStateToProps = (state) => {
+  return {
+    currentClasses: selectCurrentClasses(state),
+  };
+};
+
+export default connect(mapStateToProps)(ClassCardGrid);

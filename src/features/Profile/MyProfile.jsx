@@ -1,6 +1,6 @@
 import { message } from "antd";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteUser } from "../../app/firebase/authService";
 import { profileDataListener } from "../../app/firebase/firestore/teachersCollection";
@@ -8,8 +8,7 @@ import { selectUid } from "../auth/authSlice";
 import "./MyProfile.css";
 import { profileLoaded, selectProfileData } from "./profileSlice";
 
-const MyProfile = () => {
-  let profileData = useSelector(selectProfileData);
+const MyProfile = ({ profileData, uid, profileLoaded }) => {
   const { displayName, photoURL, classes } = profileData;
   let profileDataEntries = Object.entries(profileData);
   const privateInfo = [
@@ -20,22 +19,23 @@ const MyProfile = () => {
     "photoURL",
     "isTeacher",
   ];
-  const uid = useSelector(selectUid);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    profileDataListener(uid).onSnapshot((x) =>
-      dispatch(profileLoaded(x.data()))
+    const unsubscribe = profileDataListener(uid).onSnapshot((x) =>
+      profileLoaded(x.data())
     );
+    return () => {
+      unsubscribe();
+    };
   }, []);
   return (
     <div class="wrapper">
-      <div class="profile-card js-profile-card">
+      <div class="profile-card">
         <div class="profile-card__img">
           <img src={photoURL} alt="profile card" />
         </div>
 
-        <div class="profile-card__cnt js-profile-cnt">
+        <div class="profile-card__cnt">
           <div class="profile-card__name">{displayName}</div>
           <div class="profile-card__txt">
             Lecturer at <strong>KMIT</strong>
@@ -62,14 +62,10 @@ const MyProfile = () => {
                 <div class="profile-card-inf__title">{`Class ${
                   index + 1
                 }`}</div>
-                <div
-                  class="profile-card-inf__txt"
-                  style={{ display: "inline-block" }}
-                >
+                <div class="profile-card-inf__txt">
                   <pre>
-                    {`Branch:${cls.branch.toUpperCase()}  Year:${
-                      cls.year
-                    }   Section:${cls.section}  Subject:${cls.subject}`}
+                    Branch:{cls.branch.toUpperCase()} Year:{cls.year} Section :{" "}
+                    {cls.section} Subject:{cls.subject} <br />
                   </pre>
                 </div>
               </div>
@@ -102,4 +98,13 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+const mapStateToProps = (state) => ({
+  profileData: selectProfileData(state),
+  uid: selectUid(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  profileLoaded: (profileData) => dispatch(profileLoaded(profileData)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

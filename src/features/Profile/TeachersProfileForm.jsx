@@ -1,7 +1,7 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Cascader, Form, message } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 import { setTeacherProfileData } from "../../app/firebase/firestore/teachersCollection";
 import { classesOptions } from "../../app/subjectsApi";
@@ -28,9 +28,7 @@ const formItemLayoutWithOutLabel = {
   },
 };
 
-const TeachersProfile = () => {
-  const teacherAuthData = useSelector(selectCurrentUser);
-
+const TeachersProfile = ({ teacherAuthData }) => {
   const onFinish = async (val) => {
     try {
       await setTeacherProfileData({ ...val, ...teacherAuthData });
@@ -191,4 +189,8 @@ const TeachersProfile = () => {
   );
 };
 
-export default TeachersProfile;
+const mapStateToProps = (state) => ({
+  teacherAuthData: selectCurrentUser(state),
+});
+
+export default connect(mapStateToProps)(TeachersProfile);

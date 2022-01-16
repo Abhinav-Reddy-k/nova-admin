@@ -1,14 +1,14 @@
 import { Card } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { useParams } from "react-router";
 
 import CodeEditor from "./CodeEditor";
 import { getCurrentTask } from "./codeTasksSlice";
 
-const CodeAttempt = () => {
+const CodeAttempt = ({ getCurrentTask }) => {
   const params = useParams();
-  const currentTask = useSelector(getCurrentTask(params.title));
+  const currentTask = getCurrentTask(params.title);
   const testCases = currentTask["testCases"];
   return (
     <>
@@ -20,4 +20,10 @@ const CodeAttempt = () => {
   );
 };
 
-export default CodeAttempt;
+const mapStateToProps = (state) => {
+  return {
+    getCurrentTask: (id) => getCurrentTask(id)(state),
+  };
+};
+
+export default connect(mapStateToProps)(CodeAttempt);

@@ -1,13 +1,12 @@
 import { Col, Row } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 import TaskCard from "./TaskCard";
 import { selectCurrentCodingTasks } from "./codeTasksSlice";
 import Nodata from "../../app/common/Nodata";
 
-const CodeTestsGrid = () => {
-  const myCodingTasks = useSelector(selectCurrentCodingTasks);
+const CodeTestsGrid = ({ myCodingTasks }) => {
   return (
     <Row justify="center">
       {myCodingTasks.length === 0 && <Nodata />}
@@ -20,4 +19,10 @@ const CodeTestsGrid = () => {
   );
 };
 
-export default CodeTestsGrid;
+const mapStateToProps = (state) => {
+  return {
+    myCodingTasks: selectCurrentCodingTasks(state),
+  };
+};
+
+export default connect(mapStateToProps)(CodeTestsGrid);

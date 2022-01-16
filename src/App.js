@@ -31,7 +31,6 @@ const CodeAttempt = lazy(() => import("./features/ide/CodeAttempt"));
 const EditProfile = lazy(() => import("./features/Profile/EditProfile"));
 const NewCodeTestForm = lazy(() => import("./features/ide/NewCodeTestForm"));
 const Resources = lazy(() => import("./features/resources/Resources"));
-const Attendance = lazy(() => import("./features/attendance/Attendance"));
 
 function App() {
   const isAuthenticated = useSelector(selectIsAutheticated);
@@ -71,7 +70,7 @@ function App() {
           }
         >
           <Route path="/home/*" element={<Home />}>
-            <Route path="" element={<h1>Welcome</h1>}></Route>
+            <Route path="" element={<p className="text-11">Welcome</p>}></Route>
             <Route path="onlineClasses" element={<OnlineClasses />}></Route>
             <Route path="myprofile" element={<MyProfile />}></Route>
             <Route path="ide" element={<CodeEditor />}></Route>
@@ -79,7 +78,6 @@ function App() {
             <Route path="test/attempt/:title" element={<CodeAttempt />}></Route>
             <Route path="editProfile" element={<EditProfile />}></Route>
             <Route path="test/new" element={<NewCodeTestForm />}></Route>
-            <Route path="attendance" element={<Attendance />} />
             <Route path="resources" element={<Resources />} />
             <Route path="*" element={<Navigate to="/home" />}></Route>
           </Route>

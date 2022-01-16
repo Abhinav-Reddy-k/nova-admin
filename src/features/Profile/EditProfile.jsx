@@ -14,7 +14,7 @@ import { classesOptions } from "../../app/subjectsApi";
 import React from "react";
 import { MinusCircleOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { selectProfileData } from "./profileSlice";
 import { editProfileData } from "../../app/firebase/firestore/teachersCollection";
 import { selectUid } from "../auth/authSlice";
@@ -37,8 +37,7 @@ const formItemLayoutWithOutLabel = {
   },
 };
 
-const EditProfile = () => {
-  const profileData = useSelector(selectProfileData);
+const EditProfile = ({ profileData, uid }) => {
   let classes = [];
   profileData.classes.forEach((classObj) =>
     classes.push([
@@ -55,7 +54,6 @@ const EditProfile = () => {
   };
 
   const navigate = useNavigate();
-  const uid = useSelector(selectUid);
   const onFinish = async (val) => {
     try {
       await editProfileData({ ...val, uid });
@@ -174,4 +172,9 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+const mapStateToProps = (state) => ({
+  profileData: selectProfileData(state),
+  uid: selectUid(state),
+});
+
+export default connect(mapStateToProps)(EditProfile);
