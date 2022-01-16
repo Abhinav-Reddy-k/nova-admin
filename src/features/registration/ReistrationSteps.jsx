@@ -7,9 +7,9 @@ function ReistrationSteps({ currentStep }) {
     <Row justify="space-around" style={{ margin: "20px 0 20px 0" }}>
       <Col xs={{ span: 22 }} md={{ span: 20 }} lg={{ span: 12 }}>
         <Steps current={currentStep}>
-          <Steps.Step title="Register" />
-          <Steps.Step title="Verify" />
-          <Steps.Step title="Profile" />
+          <Steps.Step title={<p className="text-white">Register</p>} />
+          <Steps.Step title={<p className="text-white">Verify</p>} />
+          <Steps.Step title={<p className="text-white">Profile</p>} />
         </Steps>
       </Col>
     </Row>
