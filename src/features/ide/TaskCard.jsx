@@ -15,17 +15,10 @@ const TaskCard = ({ taskData, index }) => {
       hoverable
       key={index}
       style={{
-        width: 330,
         margin: "8px",
       }}
       cover={
-        <img
-          alt="example"
-          style={{ objectFit: "cover" }}
-          height="250px"
-          width="200px"
-          src={teacherPhoto}
-        />
+        <img alt="example" style={{ objectFit: "cover" }} src={teacherPhoto} />
       }
       actions={[
         <Button

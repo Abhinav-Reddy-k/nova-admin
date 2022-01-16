@@ -1,17 +1,26 @@
 import { Layout } from "antd";
-import React, { Suspense } from "react";
+import React, { Suspense, lazy, useState } from "react";
 
-import SideBar from "../nav/SideBar";
 import TopAppBar from "../nav/TopAppBar";
 import LoadingSpinner from "../../app/common/LoadingSpinner";
 import { Outlet } from "react-router";
+import useWindowSize from "react-use/lib/useWindowSize";
+const SideBar = lazy(() => import("../nav/SideBar"));
+const SideBarPhone = lazy(() => import("../nav/SideBarPhone"));
 
 function Home() {
   const { Header, Content, Footer } = Layout;
+  const windowsize = useWindowSize();
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <>
       <Layout hasSider={true} style={{ height: "100vh" }}>
-        <SideBar style={{ marginTop: "45px" }} />
+        {windowsize.width < 500 ? (
+          <SideBarPhone collapsed={collapsed} />
+        ) : (
+          <SideBar />
+        )}
         <Layout>
           <Header
             style={{
@@ -21,7 +30,11 @@ function Home() {
               lineHeight: "45px",
             }}
           >
-            <TopAppBar />
+            <TopAppBar
+              collapsed={collapsed}
+              onCollapse={setCollapsed}
+              width={windowsize.width}
+            />
           </Header>
           <Content
             style={{

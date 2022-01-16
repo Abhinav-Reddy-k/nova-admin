@@ -1,4 +1,4 @@
-import { Row } from "antd";
+import { Col, Row } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -12,7 +12,9 @@ const CodeTestsGrid = () => {
     <Row justify="center">
       {myCodingTasks.length === 0 && <Nodata />}
       {myCodingTasks.map((task, index) => (
-        <TaskCard taskData={task} index={index} />
+        <Col xs={24} sm={24} md={12} lg={12} xl={6}>
+          <TaskCard taskData={task} index={index} />
+        </Col>
       ))}
     </Row>
   );
