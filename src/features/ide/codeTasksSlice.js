@@ -18,8 +18,8 @@ export const { myCodingTaskesLoaded } = codingTasksSlice.actions;
 
 export default codingTasksSlice.reducer;
 export const selectCurrentCodingTasks = (store) => store.codingTasks.current;
-export const getCurrentTask = (title) =>
+export const getCurrentTask = (id) =>
   createSelector(
     (store) => store.codingTasks.current,
-    (current) => current.find((task) => task.title === title)
+    (current) => current.find((task) => task.id === id)
   );

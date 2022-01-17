@@ -41,7 +41,7 @@ const TaskCard = ({ taskData, index }) => {
         >
           {isStarted ? "Started" : "start"}
         </Button>,
-        <Link to={`/home/test/attempt/${title}`}>
+        <Link to={`/home/test/attempt/${id}`}>
           <Button>Attempt</Button>
         </Link>,
         <Button

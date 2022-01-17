@@ -11,7 +11,7 @@ const CodeTestsGrid = ({ myCodingTasks }) => {
     <Row justify="center">
       {myCodingTasks.length === 0 && <Nodata />}
       {myCodingTasks.map((task, index) => (
-        <Col xs={24} sm={24} md={12} lg={12} xl={6}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={8}>
           <TaskCard taskData={task} index={index} />
         </Col>
       ))}

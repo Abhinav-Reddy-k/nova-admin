@@ -14,7 +14,7 @@ const ClassCardGrid = ({ currentClasses }) => {
         {currentClasses.length === 0 && <Nodata />}
         {currentClasses.map((cls, index) => {
           return (
-            <Col xs={24} sm={24} md={12} lg={12} xl={6}>
+            <Col xs={24} sm={24} md={12} lg={12} xl={8}>
               <Card
                 hoverable
                 key={index}

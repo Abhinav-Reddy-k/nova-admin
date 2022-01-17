@@ -8,6 +8,7 @@ import {
   Skeleton,
   Modal,
   Progress,
+  Spin,
 } from "antd";
 import { Button } from "antd/lib/radio";
 import axios from "axios";
@@ -37,7 +38,6 @@ import "ace-builds/src-noconflict/mode-csharp";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-chrome";
 import "ace-builds/src-noconflict/theme-clouds";
-import "ace-builds/src-noconflict/theme-clouds_midnight";
 import "ace-builds/src-noconflict/theme-cobalt";
 
 const CodeEditor = ({ testCases }) => {
@@ -62,6 +62,7 @@ const CodeEditor = ({ testCases }) => {
   const [score, setScore] = useState(0);
   const [total, setTotal] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [loading, setLoadingProgress] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -111,25 +112,29 @@ const CodeEditor = ({ testCases }) => {
 
   const evaluateCode = async () => {
     showModal();
+    setLoadingProgress(true);
     let score = 0;
     let progress = 0;
     setTotal(testCases.length);
+    let requests = [];
+    let outputs = [];
     for (let testcase of testCases) {
       let input = testcase.input;
       let output = testcase.output;
-      console.log(input);
-      console.log(output);
-      let data = await getCodeOutput(code, language, versionIndex, input);
-      console.log(data.output);
-      if (data.output.trim() == output.trim()) {
-        console.log("correct");
+      requests.push(getCodeOutput(code, language, versionIndex, input));
+      outputs.push(output);
+    }
+    let responses = await Promise.all(requests);
+    for (let i = 0; i < responses.length; i++) {
+      let response = responses[i];
+      if (response.output.trim() == outputs[i].trim()) {
         score++;
         setScore(score);
       }
       progress++;
       setProgress(progress);
     }
-    console.log(score, total);
+    setLoadingProgress(false);
   };
 
   const { width, height } = useWindowSize();
@@ -294,7 +299,11 @@ const CodeEditor = ({ testCases }) => {
           />
         </Col>
         <Modal
-          title="Evaluating..."
+          title={
+            <p>
+              Evaluating... <Spin spinning={loading} />
+            </p>
+          }
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}

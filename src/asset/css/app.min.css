@@ -3,16 +3,16 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.eot);
-  src: url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.eot?#iefix)
+  src: url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.eot);
+  src: url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.eot?#iefix)
       format("embedded-opentype"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.woff2)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.woff2)
       format("woff2"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.woff)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.woff)
       format("woff"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.ttf)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.ttf)
       format("truetype"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.svg#fontawesome)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-brands-400.svg#fontawesome)
       format("svg");
 }
 @font-face {
@@ -20,16 +20,16 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.eot);
-  src: url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.eot?#iefix)
+  src: url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.eot);
+  src: url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.eot?#iefix)
       format("embedded-opentype"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.woff2)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.woff2)
       format("woff2"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.woff)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.woff)
       format("woff"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.ttf)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.ttf)
       format("truetype"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.svg#fontawesome)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-regular-400.svg#fontawesome)
       format("svg");
 }
 @font-face {
@@ -37,21 +37,21 @@
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.eot);
-  src: url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.eot?#iefix)
+  src: url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.eot);
+  src: url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.eot?#iefix)
       format("embedded-opentype"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.woff2)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.woff2)
       format("woff2"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.woff)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.woff)
       format("woff"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.ttf)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.ttf)
       format("truetype"),
-    url(http://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.svg#fontawesome)
+    url(https://demo.harnishdesign.net/html/oxyy/vendor/font-awesome/webfonts/fa-solid-900.svg#fontawesome)
       format("svg");
 }
 @import url("//fonts.googleapis.com/css?family=Poppins");
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
-@import url("http://fonts.googleapis.com/css?family=Poppins|Roboto");
+@import url("https://fonts.googleapis.com/css?family=Poppins|Roboto");
 * {
   box-sizing: border-box;
   box-sizing: border-box;
