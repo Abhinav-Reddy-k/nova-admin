@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Form, Input, Checkbox } from "antd";
 import { connect } from "react-redux";
 import { selectClasses, selectProfileData } from "../Profile/profileSlice";
@@ -9,6 +9,7 @@ import {
 import { myClassesLoaded, selectCurrentClasses } from "./classesSclice";
 import ClassCardGrid from "./ClassesCardGrid";
 import FloatingActionButton from "../../app/common/FloatingActionButton";
+import useCollectionListener from "../../app/hooks/useCollectionListener";
 
 const CollectionCreateForm = ({
   visible,
@@ -99,25 +100,14 @@ const OnlineClasses = ({
     setVisible(false);
   };
 
-  useEffect(() => {
-    const unsubscribe = myClassesListener(teacherProfile.uid).onSnapshot(
-      (querySnapshot) => {
-        let myClasses = [];
-        querySnapshot.forEach((doc) => {
-          let docData = doc.data();
-          myClasses.push({
-            ...docData,
-            startTime: docData.startTime.toDate().toString(),
-            id: doc.id,
-          });
-        });
-        myClassesLoaded(myClasses);
-      }
-    );
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  useCollectionListener({
+    query: () => myClassesListener(teacherProfile.uid),
+    data: (myClasses) => myClassesLoaded(myClasses),
+    deps: [],
+    stopListener: true,
+    shouldExecuteQuery: true,
+  });
+
   return (
     <div>
       <ClassCardGrid />

@@ -285,7 +285,7 @@ const CodeEditor = ({ testCases }) => {
             theme={theme}
             name="blah2"
             onChange={onChange}
-            fontSize={20}
+            fontSize={15}
             showPrintMargin={true}
             showGutter={true}
             highlightActiveLine={true}

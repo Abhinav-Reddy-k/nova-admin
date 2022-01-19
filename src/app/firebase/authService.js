@@ -2,9 +2,6 @@ import firebase from "./firebaseConfig";
 import { deleteUserProfileData } from "./firestore/teachersCollection";
 
 const auth = firebase.auth();
-if (window.location.hostname === "localhost") {
-  auth.useEmulator("http://localhost:9099", { disableWarnings: true });
-}
 
 export function authStateListener(observer) {
   return auth.onAuthStateChanged(observer);

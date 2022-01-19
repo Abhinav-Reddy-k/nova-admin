@@ -116,7 +116,7 @@ function App() {
           </Route>
 
           <Route path="/resetPassword" element={<ResetPassword />}></Route>
-          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Suspense>
     </ErrorBoundary>

@@ -1,40 +1,9 @@
-import { Button, Col, Form, Input, message, Row } from "antd";
+import { Form, message } from "antd";
 import React from "react";
 
 import { signUpWithEmail } from "../../app/firebase/authService";
 import AuthHeader from "../auth/ui/AuthHeader";
 import ReistrationSteps from "./ReistrationSteps";
-
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 function Register() {
   const [form] = Form.useForm();

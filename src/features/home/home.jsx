@@ -1,10 +1,12 @@
 import { Layout } from "antd";
-import React, { Suspense, lazy, useState } from "react";
+import React, { Suspense, lazy, useState, useEffect } from "react";
 
 import TopAppBar from "../nav/TopAppBar";
 import LoadingSpinner from "../../app/common/LoadingSpinner";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router-dom";
 import useWindowSize from "react-use/lib/useWindowSize";
+import { selectRequestedUrl } from "./homeSlice";
+import { useSelector } from "react-redux";
 const SideBar = lazy(() => import("../nav/SideBar"));
 const SideBarPhone = lazy(() => import("../nav/SideBarPhone"));
 
@@ -12,6 +14,11 @@ function Home() {
   const { Header, Content, Footer } = Layout;
   const windowsize = useWindowSize();
   const [collapsed, setCollapsed] = useState(false);
+  const requestedUrl = useSelector(selectRequestedUrl);
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(`/home/${requestedUrl}`);
+  }, []);
 
   return (
     <>

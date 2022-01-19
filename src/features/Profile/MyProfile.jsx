@@ -1,5 +1,5 @@
 import { message } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteUser } from "../../app/firebase/authService";
@@ -7,6 +7,7 @@ import { profileDataListener } from "../../app/firebase/firestore/teachersCollec
 import { selectUid } from "../auth/authSlice";
 import "./MyProfile.css";
 import { profileLoaded, selectProfileData } from "./profileSlice";
+import useDocListener from "../../app/hooks/useDocListener";
 
 const MyProfile = ({ profileData, uid, profileLoaded }) => {
   const { displayName, photoURL, classes } = profileData;
@@ -15,19 +16,20 @@ const MyProfile = ({ profileData, uid, profileLoaded }) => {
     "attendance",
     "to_year",
     "from_year",
+    "id",
     "uid",
     "photoURL",
     "isTeacher",
   ];
   const navigate = useNavigate();
-  useEffect(() => {
-    const unsubscribe = profileDataListener(uid).onSnapshot((x) =>
-      profileLoaded(x.data())
-    );
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  useDocListener({
+    query: () => profileDataListener(uid),
+    deps: [],
+    data: (res) => profileLoaded(res),
+    stopListener: true,
+    shouldExecuteQuery: true,
+  });
+
   return (
     <div class="wrapper">
       <div class="profile-card">

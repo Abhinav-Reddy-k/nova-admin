@@ -5,6 +5,10 @@ export const myCodingTestListener = (uid) => {
   return db.collection("coding tests").where("teacherId", "==", uid);
 };
 
+export const myCodeTestDocListener = (id) => {
+  return db.collection("coding tests").doc(id);
+};
+
 export const startCodingTest = async (id) => {
   try {
     let docref = await db
