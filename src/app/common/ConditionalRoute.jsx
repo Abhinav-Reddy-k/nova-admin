@@ -13,8 +13,7 @@ function ConditionalRoute({ redirectUrl, condition }) {
   const requestedUrl = useSelector(selectRequestedUrl);
   const dispatch = useDispatch();
   if (requestedUrl === "") {
-    let url = location.pathname.split("/").slice(2);
-    dispatch(setRequestedUrl(url.join("/")));
+    dispatch(setRequestedUrl(location.pathname));
   }
   return <>{!condition ? <Navigate to={redirectUrl} /> : <Outlet />}</>;
 }

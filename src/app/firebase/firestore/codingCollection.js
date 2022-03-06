@@ -68,3 +68,7 @@ export const deleteCodingTest = async (id) => {
     throw error.message;
   }
 };
+
+export const listenToCodingTestProgress = (id) => {
+  return db.collection("coding tests").doc(id).collection("progress");
+};

@@ -4,6 +4,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
 import "firebase/database";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -16,8 +17,16 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-if (window.location.hostname === "localhost") {
+
+const useEmulator = true;
+
+if (window.location.hostname === "localhost" && useEmulator) {
   firebase.functions().useEmulator("localhost", 5001);
+  firebase
+    .auth()
+    .useEmulator("http://localhost:9099", { disableWarnings: true });
+  firebase.firestore().useEmulator("localhost", 8080);
+  firebase.storage().useEmulator("localhost", 9199);
 }
 
 export default firebase;

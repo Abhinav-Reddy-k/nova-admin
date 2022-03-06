@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ReactComponent as NoConnectionSVG } from "../../asset/images/No-connection-bro.svg";
+import { ReactComponent as NoConnectionSVG } from "../../assets/images/No-connection-bro.svg";
 
 const NoConnection = () => {
   return (

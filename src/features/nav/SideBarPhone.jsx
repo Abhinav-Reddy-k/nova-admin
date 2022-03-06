@@ -12,7 +12,6 @@ function SideBarPhone({ collapsed }) {
         theme="light"
         collapsible
         collapsed={collapsed}
-        style={{ position: "absolute" }}
       >
         <NavMenu />
       </Sider>

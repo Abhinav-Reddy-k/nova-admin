@@ -9,16 +9,16 @@ import CodeEditor from "./CodeEditor";
 import { getCurrentTask, myCodingTaskesLoaded } from "./codeTasksSlice";
 
 const CodeAttempt = ({ getCurrentTask, myCodingTaskesLoaded }) => {
-  const params = useParams();
+  const { id } = useParams();
 
   useDocListener({
-    query: () => myCodeTestDocListener(params.title),
+    query: () => myCodeTestDocListener(id),
     data: (codingTasks) => myCodingTaskesLoaded([codingTasks]),
     deps: [],
     stopListener: true,
-    shouldExecuteQuery: !getCurrentTask(params.title),
+    shouldExecuteQuery: !getCurrentTask(id),
   });
-  const currentTask = getCurrentTask(params.title);
+  const currentTask = getCurrentTask(id);
   const testCases = currentTask?.testCases;
   return (
     <>

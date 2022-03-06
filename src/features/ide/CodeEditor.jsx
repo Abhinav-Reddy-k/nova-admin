@@ -40,12 +40,12 @@ import "ace-builds/src-noconflict/theme-chrome";
 import "ace-builds/src-noconflict/theme-clouds";
 import "ace-builds/src-noconflict/theme-cobalt";
 
-const CodeEditor = ({ testCases }) => {
-  const [code, setCode] = useState("");
+const CodeEditor = ({ testCases, script, langMode, lang }) => {
+  const [code, setCode] = useState(script ? script : "");
   const [isLoading, setLoading] = useState(false);
   const [stdin, setStdin] = useState("");
-  const [languageMode, setLangMode] = useState("python");
-  const [language, setLang] = useState("python3");
+  const [languageMode, setLangMode] = useState(langMode ? langMode : "python");
+  const [language, setLang] = useState(lang ? lang : "python3");
   const [versionIndex, setVerIndex] = useState(3);
   const [theme, setTheme] = useState("chrome");
 
@@ -95,12 +95,9 @@ const CodeEditor = ({ testCases }) => {
   };
 
   const getCodeOutput = async (code, language, versionIndex, stdin) => {
-    const { data } = await axios("https://api.jdoodle.com/v1/execute", {
+    const { data } = await axios("https://jdoodle-api.herokuapp.com/", {
       method: "POST",
       data: {
-        clientId: "504d3f8e7aa550a36678ac75c6daf92b",
-        clientSecret:
-          "9b3c4230355b9576fe602ff7a5286f9e0b542348a01771ff3d5318d6ac53cd16",
         script: code,
         language,
         versionIndex,
@@ -153,7 +150,7 @@ const CodeEditor = ({ testCases }) => {
       <Menu
         mode="horizontal"
         style={{ margin: "10px" }}
-        defaultSelectedKeys={["python3"]}
+        defaultSelectedKeys={[language]}
       >
         <Menu.Item
           onClick={() => {

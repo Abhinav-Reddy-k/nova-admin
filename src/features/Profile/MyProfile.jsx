@@ -66,7 +66,7 @@ const MyProfile = ({ profileData, uid, profileLoaded }) => {
                 }`}</div>
                 <div class="profile-card-inf__txt">
                   <pre>
-                    Branch:{cls.branch.toUpperCase()} Year:{cls.year} Section :{" "}
+                    Branch:{cls.branch.toUpperCase()} Year:{cls.year} Section:
                     {cls.section} Subject:{cls.subject} <br />
                   </pre>
                 </div>

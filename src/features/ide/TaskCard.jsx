@@ -44,6 +44,9 @@ const TaskCard = ({ taskData, index }) => {
         <Link to={`/home/test/attempt/${id}`}>
           <Button>Attempt</Button>
         </Link>,
+        <Link to={`/home/test/progress/${id}`}>
+          <Button>Progress</Button>
+        </Link>,
         <Button
           onClick={() =>
             deleteCodingTest(id)

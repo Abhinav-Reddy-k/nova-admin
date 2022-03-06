@@ -1,6 +1,5 @@
-import { Button, Col, Form, Input, message, Row } from "antd";
+import { Form, message } from "antd";
 import React from "react";
-import { AiOutlineUser } from "react-icons/ai";
 
 import { sendPasswordReset } from "../../app/firebase/authService";
 import { Link, useNavigate } from "react-router-dom";
