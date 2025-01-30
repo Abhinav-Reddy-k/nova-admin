@@ -8,7 +8,7 @@ const AuthHeader = ({ bgimg, head, sub }) => {
         <div
           className="hero-bg hero-bg-scroll"
           style={{
-            "background-image": `url("${bgimg}")`,
+            backgroundImage: `url("${bgimg}")`,
           }}
         ></div>
         <div className="hero-content mx-auto w-100 h-100 d-flex flex-column">
@@ -23,6 +23,15 @@ const AuthHeader = ({ bgimg, head, sub }) => {
             <div className="col-11 col-lg-10 mx-auto">
               <h2 className="text-11 text-white mb-3">{head}</h2>
               <p className="text-5 text-white lh-base mb-4">{sub}</p>
+              <h4 class="text-light mb-0">
+                Nova ©{new Date().getFullYear()} Created by{" "}
+                <a
+                  href="https://github.com/Abhinav-Reddy-k"
+                  style={{ color: "white" }}
+                >
+                  <b>Abhinav Reddy Kanala</b>
+                </a>
+              </h4>
             </div>
           </div>
         </div>

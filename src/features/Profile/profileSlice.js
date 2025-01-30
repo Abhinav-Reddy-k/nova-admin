@@ -52,6 +52,7 @@ export function getProfileData() {
   };
 }
 
-export const selectHasProfileData = (store) => store.profile.hasProfileData;
+export const selectHasProfileData = (store) =>
+  store.profile.hasProfileData ?? false;
 export const selectProfileData = (store) => store.profile.data;
 export const selectClasses = (store) => store.profile.data.classes;

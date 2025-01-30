@@ -58,7 +58,7 @@ function Home() {
           <Footer
             style={{ textAlign: "center", height: "20px", padding: "0px" }}
           >
-            Nova ©2021 Created by Abhinav Reddy
+            Nova ©{new Date().getFullYear()} Created by Abhinav Reddy
           </Footer>
         </Layout>
       </Layout>

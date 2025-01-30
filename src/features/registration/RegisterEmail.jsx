@@ -56,7 +56,10 @@ function Register() {
                       scrollToFirstError
                     >
                       <div class="mb-3">
-                        <label class="form-label text-light" for="emailAddress">
+                        <label
+                          class="form-label text-light"
+                          htmlFor="emailAddress"
+                        >
                           Email address
                         </label>
                         <Form.Item
@@ -81,7 +84,10 @@ function Register() {
                       </div>
 
                       <div class="mb-3">
-                        <label class="form-label text-light" for="emailAddress">
+                        <label
+                          class="form-label text-light"
+                          htmlFor="emailAddress"
+                        >
                           Password
                         </label>
                         <Form.Item
@@ -105,7 +111,10 @@ function Register() {
                       </div>
 
                       <div class="mb-3">
-                        <label class="form-label text-light" for="emailAddress">
+                        <label
+                          class="form-label text-light"
+                          htmlFor="emailAddress"
+                        >
                           Confirm Password
                         </label>
                         <Form.Item
@@ -144,7 +153,10 @@ function Register() {
                       </div>
 
                       <div class="mb-3">
-                        <label class="form-label text-light" for="emailAddress">
+                        <label
+                          class="form-label text-light"
+                          htmlFor="emailAddress"
+                        >
                           User Name
                         </label>
                         <Form.Item

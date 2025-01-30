@@ -69,9 +69,10 @@ export function verifyAuth() {
 export const { logout, login, verifyUserEmail } = authSlice.actions;
 export default authSlice.reducer;
 
-export const selectIsAutheticated = (state) => state.auth.isAuthenticated;
+export const selectIsAutheticated = (state) =>
+  state.auth.isAuthenticated ?? false;
 export const selectEmailVerified = (state) =>
-  state.auth.currentUser.emailVerified;
+  state.auth.currentUser.emailVerified ?? false;
 
 export const selectUid = (state) => state.auth.currentUser.uid;
 

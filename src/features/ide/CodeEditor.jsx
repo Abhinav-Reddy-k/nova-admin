@@ -95,7 +95,7 @@ const CodeEditor = ({ testCases, script, langMode, lang }) => {
   };
 
   const getCodeOutput = async (code, language, versionIndex, stdin) => {
-    const { data } = await axios("https://jdoodle-api.herokuapp.com/", {
+    const { data } = await axios("https://jdoodle-api.onrender.com", {
       method: "POST",
       data: {
         script: code,

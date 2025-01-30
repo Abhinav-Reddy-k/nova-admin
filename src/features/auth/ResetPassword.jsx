@@ -51,7 +51,10 @@ function ResetPassword() {
                       className="form-dark"
                     >
                       <div class="mb-3">
-                        <label class="form-label text-light" for="emailAddress">
+                        <label
+                          class="form-label text-light"
+                          htmlFor="emailAddress"
+                        >
                           Email address
                         </label>
                         <Form.Item

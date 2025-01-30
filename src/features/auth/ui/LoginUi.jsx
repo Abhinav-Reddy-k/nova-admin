@@ -34,12 +34,12 @@ const LoginUi = ({
                       }}
                       labelCol={{ span: 7 }}
                       onFinish={onLoginWithEmailPassword}
-                      classNameName="form-dark"
+                      className="form-dark"
                     >
                       <div className="mb-3">
                         <label
                           className="form-label text-light"
-                          for="emailAddress"
+                          htmlFor="emailAddress"
                         >
                           Email Address
                         </label>
@@ -66,7 +66,7 @@ const LoginUi = ({
                       <div className="mb-3">
                         <label
                           className="form-label text-light"
-                          for="loginPassword"
+                          htmlFor="loginPassword"
                         >
                           Password
                         </label>
@@ -102,7 +102,7 @@ const LoginUi = ({
                             />
                             <label
                               className="form-check-label text-light"
-                              for="remember-me"
+                              htmlFor="remember-me"
                             >
                               Remember Me
                             </label>
@@ -117,7 +117,7 @@ const LoginUi = ({
                       </div>
                       <div className="d-grid my-4">
                         <Form.Item>
-                          <button className="btn btn-primary" htmlType="submit">
+                          <button className="btn btn-primary" htmltype="submit">
                             Sign In
                           </button>
                         </Form.Item>
