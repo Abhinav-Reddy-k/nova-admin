@@ -29,7 +29,7 @@ const AuthHeader = ({ bgimg, head, sub }) => {
                   href="https://github.com/Abhinav-Reddy-k"
                   style={{ color: "white" }}
                 >
-                  <b>Abhinav Reddy Kanala</b>
+                  <b>Abhinav Reddy</b>
                 </a>
               </h4>
             </div>
